@@ -21,8 +21,6 @@ services:
 
   db:
     image: postgres:14.2-alpine
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=polls
       - POSTGRES_USER=postgres
