@@ -7,25 +7,23 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    # environment:
-    #   - POSTGRES_NAME=postgres
-    #   - POSTGRES_USER=postgres
-    #   - POSTGRES_PASSWORD=postgres
-    command: python manage.py runserver 0.0.0.0:8000
-  #   depends_on:
-  #     - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=polls
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
 
-  # db:
-  #   image: sqlite3
-  #   volumes:
-  #     - ./data/db:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_DB=postgres
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
-  # postgres:
-  #   environment:
-  #     POSTGRES_USER: rodinia_test_user
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: rodinia
-  #   image: postgres:12.1-alpine
+  db:
+    image: postgres:14.2-alpine
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=polls
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
