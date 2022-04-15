@@ -28,11 +28,12 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["http://0.0.0.0:8000/", "0.0.0.0:8000"]
 
 
 # Application definition
 BASE_PROJECT_APPS = [
+    "core",
     "polls",
 ]
 THIRD_PARTY_APPS = [
@@ -87,7 +88,7 @@ WSGI_APPLICATION = "pollsapi.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": os.environ.get("DB_HOST"),
         "NAME": os.environ.get("DB_NAME"),
         "USER": os.environ.get("DB_USER"),
