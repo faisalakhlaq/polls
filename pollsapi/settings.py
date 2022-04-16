@@ -28,13 +28,14 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["http://0.0.0.0:8000/", "0.0.0.0:8000"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
 BASE_PROJECT_APPS = [
     "core",
     "polls",
+    "voters",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -134,7 +135,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+MEDIA_URL = "/media/"
 
+MEDIA_ROOT = "/media"
+STATIC_ROOT = "/static"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
