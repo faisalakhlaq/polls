@@ -39,6 +39,7 @@ BASE_PROJECT_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "django_cleanup.apps.CleanupConfig",
 ]
 INSTALLED_APPS = (
     [
