@@ -5,7 +5,7 @@ services:
     build: 
       context: .
     volumes:
-      - .:/code
+      - .:/code/
     ports:
       - "8000:8000"
     environment:
