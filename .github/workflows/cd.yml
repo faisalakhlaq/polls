@@ -1,23 +1,53 @@
 ---
-name: Continuous Deployment
+name: Continuous Deployment Django, Postgres
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-20.04
+    runs-on: test
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Clean
+        run: docker-compose down --volumes --remove-orphans
+
+      - name: Prune Volumes
+        run: docker system prune -f --volumes
+
+      - name: Build
+        run: docker-compose build web
+
+      - name: Start Postgers
+        run: docker-compose up -d db
+
       - name: Test
         run: docker-compose run --rm web sh -c "python manage.py test"
 
-  lint:
-    name: List
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Lint
-        run: docker-compose run --rm web sh -c "flake8"
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Test
+  #       run: docker-compose run --rm web sh -c "python manage.py test"
+
+  # lint:
+  #   name: Lint
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Lint
+  #       run: docker-compose run --rm web sh -c "flake8"
