@@ -34,8 +34,8 @@ jobs:
       # - name: Start Postgers
       #   run: docker-compose up -d db
 
-      # - name: Test
-      #   run: docker-compose run --rm web sh -c "python manage.py test"
+      - name: Test
+        run: docker-compose run --rm web sh -c "python manage.py test"
 
   # test:
   #   name: Test
