@@ -28,7 +28,7 @@ class ImageUploadTest(APITransactionTestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = get_user_model().objects.create_user(
-            "user@kts.com", "testpass"
+            "user@kts.com", "testpass", is_staff=True
         )
         self.client.force_authenticate(self.user)
         self.voter = create_sample_voter()
